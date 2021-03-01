@@ -1,4 +1,4 @@
-CREATE TABLE fe_users (
+CREATE TABLE IF NOT EXISTS fe_users (
 	uid int AUTO_INCREMENT NOT NULL UNIQUE,
 	email varchar(100) NOT NULL UNIQUE,
 	firstName varchar(40),
@@ -14,9 +14,12 @@ CREATE TABLE fe_users (
 	PRIMARY KEY (uid)
 );
 
-CREATE TABLE ses_ids (
+CREATE TABLE IF NOT EXISTS ses_ids (
 	sesId varchar(128) NOT NULL,
 	accountId int NOT NULL,
+
+	time_created int NOT NULL,
+	time_expires int NOT NULL,
 
 	PRIMARY KEY (sesId),
 	FOREIGN KEY (accountId) REFERENCES fe_users(uid)
