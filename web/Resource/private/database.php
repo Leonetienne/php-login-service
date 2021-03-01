@@ -39,18 +39,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 		}
 
 		// Bind params
-		//foreach ($params as &$pair) {
-		//	if (!$stmt->bind_param($pair['type'], $pair['value'])) {
-		//		$conn->close();
-		//		http_response_code(500);
-		//		die(json_encode(array(
-		//			'status' => 'failed',
-		//			'errno' => '100502',
-		//			'message' => 'internal server error'
-		//		)));
-		//	}
-		//}
-
 		if (!$stmt->bind_param($paramTypes, ...$params)) {
 			$conn->close();
 			http_response_code(500);
