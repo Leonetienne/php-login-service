@@ -14,7 +14,7 @@ require_once 'Resource/private/hashPasswordKdf.php';
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '400',
+			'errno' => '100400',
 			'message' => 'missing email or password'
 		)));
 	}
@@ -26,42 +26,13 @@ require_once 'Resource/private/hashPasswordKdf.php';
 	// Establish database connection
 	$conn = ConnectToDatabase();
 
-	// Query user list
-	// Prepare statement
-	if (!($stmt = $conn->prepare("SELECT password_hash FROM fe_users WHERE email = ?"))) {
-		$conn->close();
-		http_response_code(500);
-		die(json_encode(array(
-			'status' => 'failed',
-			'errno' => '500',
-			'message' => 'internal server error'
-		)));
-	}
-
-	// Bind statement
-	if (!$stmt->bind_param("s", $userEmail)) {
-		$conn->close();
-		http_response_code(500);
-		die(json_encode(array(
-			'status' => 'failed',
-			'errno' => '501',
-			'message' => 'internal server error'
-		)));
-	}
-
-	// Execute
-	if (!$stmt->execute()) {
-		$conn->close();
-		http_response_code(500);
-		die(json_encode(array(
-			'status' => 'failed',
-			'errno' => '502',
-			'message' => 'internal server error'
-		)));
-	}
-
-	// Get results
-	$results = $stmt->get_result()->fetch_all();
+	// Query database
+	$results = SecureQuery(
+		$conn,
+		"SELECT password_hash FROM fe_users WHERE email = ?",
+		"s",
+		$userEmail
+	)->fetch_all();
 
 	// Was any account found?
 	if (count($results) < 1) {
@@ -69,7 +40,7 @@ require_once 'Resource/private/hashPasswordKdf.php';
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '401',
+			'errno' => '100401',
 			'message' => 'Account not found'
 		)));
 	}
@@ -80,7 +51,7 @@ require_once 'Resource/private/hashPasswordKdf.php';
 		http_response_code(500);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '503',
+			'errno' => '100504',
 			'message' => 'internal server error'
 		)));
 	}
@@ -91,7 +62,7 @@ require_once 'Resource/private/hashPasswordKdf.php';
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '402',
+			'errno' => '100402',
 			'message' => 'Password invalid'
 		)));
 	}
@@ -101,5 +72,9 @@ require_once 'Resource/private/hashPasswordKdf.php';
 	// Banned and unverified accounts can still log in, but they will be restricted.
 
 	// TODO: Create session-id and return it
-	echo("Nice! You're logged in!");
+	http_response_code(200);
+	die(json_encode(array(
+			'status' => 'success',
+			'message' => 'You\'re in!'
+	)));
 ?>

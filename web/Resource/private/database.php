@@ -15,9 +15,64 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 		// Check if we are connected
 		if ($conn->connect_errno) {
-		  die("Connection failed. :( =><br/>" . $conn->connect_error);
+		  die(json_encode(array(
+				'status' => 'failed',
+				'errno' => '100500',
+				'message' => 'internal server error'
+			)));
 		}
 
 		return $conn;
+	}
+
+	function SecureQuery($conn, $queryTemplate, $paramTypes, ...$params) {
+
+		// Prepare statement
+		if (!($stmt = $conn->prepare($queryTemplate))) {
+			$conn->close();
+			http_response_code(500);
+			die(json_encode(array(
+				'status' => 'failed',
+				'errno' => '100501',
+				'message' => 'internal server error'
+			)));
+		}
+
+		// Bind params
+		//foreach ($params as &$pair) {
+		//	if (!$stmt->bind_param($pair['type'], $pair['value'])) {
+		//		$conn->close();
+		//		http_response_code(500);
+		//		die(json_encode(array(
+		//			'status' => 'failed',
+		//			'errno' => '100502',
+		//			'message' => 'internal server error'
+		//		)));
+		//	}
+		//}
+
+		if (!$stmt->bind_param($paramTypes, ...$params)) {
+			$conn->close();
+			http_response_code(500);
+			die(json_encode(array(
+				'status' => 'failed',
+				'errno' => '100502',
+				'message' => 'internal server error'
+			)));
+		}
+
+		// Execute
+		if (!$stmt->execute()) {
+			$conn->close();
+			http_response_code(500);
+			die(json_encode(array(
+				'status' => 'failed',
+				'errno' => '100503',
+				'message' => 'internal server error'
+			)));
+		}
+
+		// Return results
+		return $stmt->get_result();
 	}
 ?>
