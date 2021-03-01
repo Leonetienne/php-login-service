@@ -9,9 +9,9 @@ CREATE TABLE fe_users (
 	isBanned BOOLEAN NOT NULL DEFAULT false,
 	isVerified BOOLEAN NOT NULL DEFAULT false,
 
-	PRIMARY KEY (email),
+	KEY (email),
 	KEY (username),
-	KEY (uid)
+	PRIMARY KEY (uid)
 );
 
 CREATE TABLE ses_ids (
