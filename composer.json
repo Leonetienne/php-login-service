@@ -1,0 +1,6 @@
+{
+    "require": {
+        "ext-mysqli": "^7.4",
+        "joshcam/mysqli-database-class": "dev-master"
+    }
+}

@@ -1,0 +1,5 @@
+.vs
+*.swp
+vendor/
+last_admintool_pwh.txt
+*.pem

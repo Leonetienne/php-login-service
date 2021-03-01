@@ -1,0 +1,13 @@
+# Deny access to all private resources
+RedirectMatch 403 ^.*/private/.*$
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    # Deny all unencrypted requests, if not in development environment
+    RewriteCond %{HTTPS} =off
+    RewriteCond %{HTTP_HOST} !^.*ddev\.site\.?(:[0-9]{1,5})?$
+    RewriteCond %{REQUEST_URI} !^/errssl\.php$
+    RewriteRule (.*) /errssl.php
+
+</IfModule>
