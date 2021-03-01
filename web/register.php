@@ -16,7 +16,7 @@ function IsEmailAvailable($conn, $email) {
 	return (count($results) < 1);
 }
 
-// Returns whether or not a given user name address is available for registration
+// Returns whether or not a given user name is available for registration
 function IsUsernameAvailable($conn, $userName) {
 	// Query database
 	$results = SecureQuery(
