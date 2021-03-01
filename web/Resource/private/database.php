@@ -2,7 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 	function ConnectToDatabase()
 	{
-		require_once 'databaseCredentials.php';
+		require 'databaseCredentials.php';
 
 		// Connect to mysql database
 		$conn = new mysqli (
@@ -29,6 +29,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 		// Prepare statement
 		if (!($stmt = $conn->prepare($queryTemplate))) {
+			//echo($conn->error);
 			$conn->close();
 			http_response_code(500);
 			die(json_encode(array(

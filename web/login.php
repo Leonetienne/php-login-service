@@ -1,6 +1,7 @@
 <?php
 require_once 'Resource/private/database.php';
 require_once 'Resource/private/hashPasswordKdf.php';
+require_once 'Resource/private/session.php';
 
 	// Set header data
 	header('Access-Control-Allow-Origin: *');
@@ -29,7 +30,7 @@ require_once 'Resource/private/hashPasswordKdf.php';
 	// Query database
 	$results = SecureQuery(
 		$conn,
-		"SELECT password_hash, uid FROM fe_users WHERE email = ?",
+		"SELECT password_hash FROM fe_users WHERE email = ?",
 		"s",
 		$userEmail
 	)->fetch_all();
@@ -68,16 +69,24 @@ require_once 'Resource/private/hashPasswordKdf.php';
 	}
 	$conn->close();
 
-	$accountId = $results[0][1];
 
 	// All is Okay! Password matches!
 	// Banned and unverified accounts can still log in, but they will be restricted.
 
-	// TODO: Create session-id and return it
+	$sessionId = CreateSession($userEmail);
+	if ($sessionId === false) {
+		http_response_code(500);
+		die(json_encode(array(
+			'status' => 'failed',
+			'errno' => '100505',
+			'message' => 'internal server error'
+		)));
+	}
+
 	http_response_code(200);
 	die(json_encode(array(
 			'status' => 'success',
 			'message' => 'You\'re in!',
-			'accountId' => $accountId
+			'sessionId' => $sessionId
 	)));
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once 'Resource/private/database.php';
 require_once 'Resource/private/hashPasswordKdf.php';
+require_once 'Resource/private/session.php';
 
 // Returns whether or not a given email address is available for registration
 function IsEmailAvailable($conn, $email) {
@@ -107,12 +108,23 @@ function IsUsernameAvailable($conn, $userName) {
 		$userLastname ?: NULL,
 		HashPasswordKDF($userPassword, $userEmail)
 	);
+
+	$sessionId = CreateSession($userEmail);
+	if ($sessionId === false) {
+		http_response_code(500);
+		die(json_encode(array(
+			'status' => 'failed',
+			'errno' => '100506',
+			'message' => 'internal server error'
+		)));
+	}
 	
 	$conn->close();
 	http_response_code(200);
 	die(json_encode(array(
 			'status' => 'success',
-			'message' => 'Account created!'
+			'message' => 'Account created!',
+			'sessionId' => $sessionId
 	)));
 
 ?>
