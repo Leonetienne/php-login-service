@@ -1,5 +1,6 @@
 # Deny access to all private resources
 RedirectMatch 403 ^.*/private/.*$
+RedirectMatch 403 ^.*/\.gitignore$
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
