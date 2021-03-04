@@ -100,4 +100,46 @@ function CloseSession($sessionId) {
 		$sessionId
 	);
 }
+
+// Will close all sessions accociated to the account associated with a session
+function CloseAllAssociatedSessions($sessionId) {
+	// Connect to database
+	$conn = ConnectToDatabase();
+
+	// Fetch account id
+	$results = SecureQuery(
+		$conn,
+		"SELECT accountId FROM ses_ids WHERE sesId = ?;",
+		"s",
+		$sessionId
+	)->fetch_all();
+
+	// Was any account found?
+	if (count($results) < 1) {
+		$conn->close();
+		return false;
+	}
+
+	$uid = $results[0][0];
+
+	// Fetch all sessions belonging to that account
+	$results = SecureQuery(
+		$conn,
+		"SELECT sesId FROM ses_ids WHERE accountId = ?;",
+		"i",
+		$uid
+	)->fetch_all();
+
+	// Close all
+	foreach ($results as $ses) {
+		// Delete session
+		SecureQuery(
+			$conn,
+			"DELETE FROM ses_ids WHERE sesId = ?;",
+			"s",
+			$ses[0]
+		);
+	}
+
+}
 ?>

@@ -11,12 +11,29 @@ require_once 'Resource/private/session.php';
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100408',
+			'errno' => '100409',
 			'message' => 'missing sessionId'
 		)));
 	}
 
-	CloseSession($_POST["sessionId"]);
+	// Prevent expired sessions from logging out other sessions
+	if (BumpSession($_POST["sessionId"]) === false) {
+		http_response_code(400);
+		die(json_encode(array(
+			'status' => 'failed',
+			'errno' => '100410',
+			'message' => 'invalid session. session expired'
+		)));
+	}
+
+	if (CloseAllAssociatedSessions($_POST["sessionId"])=== false) {
+		http_response_code(400);
+		die(json_encode(array(
+			'status' => 'failed',
+			'errno' => '100411',
+			'message' => 'invalid session'
+		)));
+	}
 
 	http_response_code(200);
 	die(json_encode(array(

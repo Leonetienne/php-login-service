@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "a8615553-6799-4e1d-84f0-b2548667a276",
+		"name": "php-login-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "password",
+							"value": "koka_corona",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/login.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"login.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setup database",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "adm_password",
+							"value": "koka_corona",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/setup-database.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"setup-database.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "hajak@f.de",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "hajak",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ohne_namen",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "hannes",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "fichte",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/register.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"register.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testbump",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "afa5143761ff947423bd43dfa817af80",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "?=",
+					"query": [
+						{
+							"key": null,
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "logoutAll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "0f2269130c4d31de17ed3bada53853d1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/logout-all.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"logout-all.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -35,7 +35,7 @@ function IsUsernameAvailable($conn, $userName) {
 
 	// Set header data
 	header('Access-Control-Allow-Origin: *');
-	header("Content-type: application/json");	
+	header("Content-type: application/json");
 
 	// Do we actually have these values?
 	if ((!isset($_POST["password"])) ||
