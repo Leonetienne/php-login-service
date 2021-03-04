@@ -80,7 +80,7 @@ function IsUsernameAvailable($conn, $userName) {
 		http_response_code(500);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100405',
+			'errno' => '100406',
 			'message' => 'username invalid'
 		)));
 	}
@@ -92,7 +92,7 @@ function IsUsernameAvailable($conn, $userName) {
 		http_response_code(500);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100405',
+			'errno' => '100407',
 			'message' => 'username or email already taken'
 		)));
 	}

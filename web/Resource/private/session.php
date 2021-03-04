@@ -65,6 +65,7 @@ function BumpSession($sessionId) {
 
 	// If session is expired
 	if ($results[0][0] < time()) {
+		// Delete session
 		SecureQuery(
 			$conn,
 			"DELETE FROM ses_ids WHERE sesId = ?;",
@@ -84,5 +85,19 @@ function BumpSession($sessionId) {
 	);
 
 	return true;
+}
+
+// Will close a given session
+function CloseSession($sessionId) {
+	// Connect to database
+	$conn = ConnectToDatabase();
+
+	// Delete session
+	SecureQuery(
+		$conn,
+		"DELETE FROM ses_ids WHERE sesId = ?;",
+		"s",
+		$sessionId
+	);
 }
 ?>
