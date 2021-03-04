@@ -82,33 +82,81 @@
 					"formdata": [
 						{
 							"key": "email",
-							"value": "",
+							"value": "hajak@f.de",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "",
+							"value": "hajak",
 							"type": "text"
 						},
 						{
 							"key": "username",
-							"value": "",
+							"value": "ohne_namen",
 							"type": "text"
 						},
 						{
 							"key": "firstname",
-							"value": "",
+							"value": "hannes",
 							"type": "text",
 							"disabled": true
 						},
 						{
 							"key": "lastname",
-							"value": "",
+							"value": "fichte",
 							"type": "text",
 							"disabled": true
 						}
 					]
 				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/register.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"register.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testbump",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "afa5143761ff947423bd43dfa817af80",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "?=",
+					"query": [
+						{
+							"key": null,
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
 				"url": null
 			},
 			"response": []
