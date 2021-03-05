@@ -1,5 +1,5 @@
 <?php
-	# Key derivative function for password hashing
+	// Key derivative function for password hashing
 	function HashPasswordKDF($pw, $username)
 	{
 		// First, add some salt
