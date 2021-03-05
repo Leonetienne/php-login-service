@@ -29,7 +29,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 		// Prepare statement
 		if (!($stmt = $conn->prepare($queryTemplate))) {
-			//echo($conn->error);
+			echo($conn->error);
 			$conn->close();
 			http_response_code(500);
 			die(json_encode(array(
@@ -41,6 +41,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 		// Bind params
 		if (!$stmt->bind_param($paramTypes, ...$params)) {
+			echo($stmt->error);
 			$conn->close();
 			http_response_code(500);
 			die(json_encode(array(
@@ -52,6 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 		// Execute
 		if (!$stmt->execute()) {
+			echo($stmt->error);
 			$conn->close();
 			http_response_code(500);
 			die(json_encode(array(

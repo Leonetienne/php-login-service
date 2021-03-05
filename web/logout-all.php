@@ -1,5 +1,5 @@
 <?php
-require_once 'Resource/private/session.php';
+require 'Resource/private/session.php';
 	// Set header data
 	header('Access-Control-Allow-Origin: *');
 	header("Content-type: application/json");
