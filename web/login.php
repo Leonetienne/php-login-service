@@ -30,7 +30,7 @@ require_once 'Resource/private/session.php';
 	// Query database
 	$results = SecureQuery(
 		$conn,
-		"SELECT password_hash FROM fe_users WHERE email = ?",
+		"SELECT password_hash FROM fe_users WHERE email = ?;",
 		"s",
 		$userEmail
 	)->fetch_all();

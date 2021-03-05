@@ -8,7 +8,7 @@ function IsEmailAvailable($conn, $email) {
 	// Query database
 	$results = SecureQuery(
 		$conn,
-		"SELECT password_hash FROM fe_users WHERE email = ?",
+		"SELECT password_hash FROM fe_users WHERE email = ?;",
 		"s",
 		$email
 	)->fetch_all();
@@ -22,7 +22,7 @@ function IsUsernameAvailable($conn, $userName) {
 	// Query database
 	$results = SecureQuery(
 		$conn,
-		"SELECT password_hash FROM fe_users WHERE username = ?",
+		"SELECT password_hash FROM fe_users WHERE username = ?;",
 		"s",
 		$userName
 	)->fetch_all();
@@ -100,7 +100,7 @@ function IsUsernameAvailable($conn, $userName) {
 	// Create fe_users entry
 	$results = SecureQuery(
 		$conn,
-		"INSERT INTO fe_users (email, username, firstName, lastName, password_hash) VALUES (?, ?, ?, ?, ?)",
+		"INSERT INTO fe_users (email, username, firstName, lastName, password_hash) VALUES (?, ?, ?, ?, ?);",
 		"sssss",
 		$userEmail,
 		$userName,

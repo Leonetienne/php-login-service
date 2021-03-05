@@ -26,7 +26,8 @@ require_once 'Resource/private/session.php';
 		)));
 	}
 
-	if (CloseAllAssociatedSessions($_POST["sessionId"])=== false) {
+	// This should never fail
+	if (CloseAllAssociatedSessions($_POST["sessionId"]) === false) {
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
