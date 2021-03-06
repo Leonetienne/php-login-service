@@ -1,6 +1,6 @@
 <?php
 require_once 'Resource/private/session.php';
-require_once 'Resource/private/setUserBanned.php';
+require_once 'Resource/private/kickUser.php';
 require_once 'Resource/private/permissions.php';
 
 	// Set header data
@@ -9,29 +9,27 @@ require_once 'Resource/private/permissions.php';
 
 	// Do we actually have these values?
 	if ((!isset($_POST["sessionId"])) ||
-		(!isset($_POST["userEmail"])) ||
-		(!isset($_POST["banned"])))
+		(!isset($_POST["userEmail"])))
 	{
 		// If not, return error code 400 and an approriate error message
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100423',
-			'message' => 'missing form data. Please supply (sessionId, userEmail, banned)'
+			'errno' => '100425',
+			'message' => 'missing form data. Please supply (sessionId, userEmail)'
 		)));
 	}
 
 	// Retrieve form data
 	$sessionId = $_POST["sessionId"];
 	$userEmail = $_POST["userEmail"];
-	$banned	   = $_POST["banned"];
 
 	// Check if session id is valid
 	if (BumpSession($_POST["sessionId"]) === false) {
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100424',
+			'errno' => '100426',
 			'message' => 'invalid session. session expired'
 		)));
 	}
@@ -39,7 +37,7 @@ require_once 'Resource/private/permissions.php';
 	// Establish database connection
 	$conn = ConnectToDatabase();
 
-	// Check if user is permitted to manage bans
+	// Check if user is permitted to kick
 	$results = SecureQuery(
 		$conn,
 		"SELECT fe_users.permLevel FROM fe_users JOIN ses_ids ON ses_ids.accountId = fe_users.uid WHERE ses_ids.sesId = ?;",
@@ -48,33 +46,21 @@ require_once 'Resource/private/permissions.php';
 	)->fetch_all();
 
 	// Check permissions based on wether we are banning or unbanning
-	if ($banned) {
-		if ($results[0][0] < $PERMISSIONS['ban_user']) {
-			http_response_code(401);
-			die(json_encode(array(
-				'status' => 'failed',
-				'errno' => '100417',
-				'message' => 'insufficient permissions'
-			)));
-		}
-	}
-	else {
-		if ($results[0][0] < $PERMISSIONS['unban_user']) {
-			http_response_code(401);
-			die(json_encode(array(
-				'status' => 'failed',
-				'errno' => '100418',
-				'message' => 'insufficient permissions'
-			)));
-		}
+	if ($results[0][0] < $PERMISSIONS['kick_user']) {
+		http_response_code(401);
+		die(json_encode(array(
+			'status' => 'failed',
+			'errno' => '100427',
+			'message' => 'insufficient permissions'
+		)));
 	}
 
-	// Attempt to set banned status
-	if (!SetUserBanned($userEmail, $banned)) {
+	// Attempt to kick user
+	if (!KickUser($userEmail)) {
 		http_response_code(400);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100421',
+			'errno' => '100429',
 		)));
 	}
 
