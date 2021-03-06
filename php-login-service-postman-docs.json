@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Login",
+			"name": "Login (admin-user)",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -21,6 +21,42 @@
 						{
 							"key": "password",
 							"value": "koka_corona",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/login.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"login.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login (normal-user)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "hajak@f.de",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "hajak",
 							"type": "text"
 						}
 					]
@@ -334,6 +370,42 @@
 					"port": "3300",
 					"path": [
 						"kick-user.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserData",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "f20ab10d0ed69c93051e4cafa60c37d3",
+							"type": "text"
+						},
+						{
+							"key": "userEmail",
+							"value": "hajak@f.de",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/fetch-user-data.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"fetch-user-data.php"
 					]
 				}
 			},

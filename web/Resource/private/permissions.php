@@ -10,6 +10,7 @@
 	$PERMISSIONS = array(
 		'ban_user'		=> $PERM_LEVELS['moderator'],
 		'unban_user'	=> $PERM_LEVELS['moderator'],
-		'kick_user'		=> $PERM_LEVELS['moderator']
+		'kick_user'		=> $PERM_LEVELS['moderator'],
+		'read_userdata'	=> $PERM_LEVELS['moderator']
 	);
 ?>
