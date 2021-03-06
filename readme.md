@@ -38,5 +38,11 @@ mkcert install
 ddev launch
 ```
 
+# Important after first start
+```
+# Set up database
+Call 'setup database' in postman
+```
+
 # Debug rest api
 Use [Postman](https://www.postman.com/), and open `php-login-service-postman-docs.json`.

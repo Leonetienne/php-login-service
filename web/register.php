@@ -2,6 +2,7 @@
 require_once 'Resource/private/database.php';
 require_once 'Resource/private/hashPasswordKdf.php';
 require_once 'Resource/private/session.php';
+require_once 'Resource/private/emailVerification.php';
 
 // Returns whether or not a given email address is available for registration
 function IsEmailAvailable($conn, $email) {
@@ -112,10 +113,19 @@ function IsUsernameAvailable($conn, $userName) {
 	$sessionId = CreateSession($userEmail);
 	if ($sessionId === false) {
 		http_response_code(500);
+			echo(json_encode(array(
+				'status' => 'failed',
+				'errno' => '100508',
+				'message' => 'internal server error'
+			)));
+	}
+
+	if(!SendRegistrationEmail($userEmail)) {
+		http_response_code(500);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '100506',
-			'message' => 'internal server error'
+			'errno' => '0',
+			'message' => 'failed'
 		)));
 	}
 	
@@ -123,7 +133,7 @@ function IsUsernameAvailable($conn, $userName) {
 	http_response_code(200);
 	die(json_encode(array(
 			'status' => 'success',
-			'message' => 'Account created!',
+			'message' => 'Account created successfully. Please confirm your email address.',
 			'sessionId' => $sessionId
 	)));
 

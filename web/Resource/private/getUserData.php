@@ -16,7 +16,7 @@ require_once 'database.php';
 		)->fetch_all();
 
 		if (count($results) < 1) {
-			http_response_code(401);
+			http_response_code(400);
 			echo(json_encode(array(
 				'status' => 'failed',
 				'errno' => '100434',

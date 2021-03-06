@@ -1,6 +1,7 @@
 {
     "require": {
         "ext-mysqli": "^7.4",
-        "joshcam/mysqli-database-class": "dev-master"
+        "joshcam/mysqli-database-class": "dev-master",
+        "phpmailer/phpmailer": "^6.3"
     }
 }

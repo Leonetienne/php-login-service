@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS ses_ids (
 	PRIMARY KEY (sesId),
 	FOREIGN KEY (accountId) REFERENCES fe_users(uid)
 );
+
+CREATE TABLE IF NOT EXISTS action_keys (
+	actionKey varchar(128) NOT NULL,
+	accountId int NOT NULL,
+
+	time_created int NOT NULL,
+	time_expires int NOT NULL,
+
+	action varchar(64) NOT NULL,
+
+	PRIMARY KEY (actionKey),
+	FOREIGN KEY (accountId) REFERENCES fe_users(uid)
+)
