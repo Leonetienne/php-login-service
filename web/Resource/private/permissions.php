@@ -8,9 +8,10 @@
 	
 	// This array describes the minimum permission level an account has to have in order to do specific functions
 	$PERMISSIONS = array(
-		'ban_user'		=> $PERM_LEVELS['moderator'],
-		'unban_user'	=> $PERM_LEVELS['moderator'],
-		'kick_user'		=> $PERM_LEVELS['moderator'],
-		'read_userdata'	=> $PERM_LEVELS['moderator']
+		'ban_user'			=> $PERM_LEVELS['moderator'],
+		'unban_user'		=> $PERM_LEVELS['moderator'],
+		'kick_user'			=> $PERM_LEVELS['moderator'],
+		'read_userdata'		=> $PERM_LEVELS['moderator'],
+		'grant_permissions'	=> $PERM_LEVELS['administrator']
 	);
 ?>

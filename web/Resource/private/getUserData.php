@@ -19,7 +19,7 @@ require_once 'database.php';
 			http_response_code(401);
 			echo(json_encode(array(
 				'status' => 'failed',
-				'errno' => '100422',
+				'errno' => '100434',
 				'message' => 'user not found'
 			)));
 			return false;
