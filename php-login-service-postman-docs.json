@@ -118,17 +118,17 @@
 					"formdata": [
 						{
 							"key": "email",
-							"value": "pupu@f.de",
+							"value": "lalala@f.de",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "pupu",
+							"value": "lalala",
 							"type": "text"
 						},
 						{
 							"key": "username",
-							"value": "xxx",
+							"value": "xxxxx",
 							"type": "text"
 						},
 						{
@@ -447,6 +447,38 @@
 					"port": "3300",
 					"path": [
 						"grant-user-permissions.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "requestPasswordReset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "dududu",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/request-password-reset.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"request-password-reset.php"
 					]
 				}
 			},

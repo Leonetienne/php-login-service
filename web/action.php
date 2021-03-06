@@ -1,6 +1,7 @@
 <?php
 // This file is responsible to handle actions, hidden from users
 require_once 'Resource/private/emailVerification.php';
+require_once 'Resource/private/resetPassword.php';
 
 // Private function to delete key
 $private_DeleteKey = function($conn, $key) {
@@ -78,6 +79,19 @@ $private_DeleteKey = function($conn, $key) {
 			echo(json_encode(array(
 				'status' => 'failed',
 				'errno' => '100507',
+				'message' => 'internal server error'
+			)));
+			$private_DeleteKey($conn, $key);
+			unset($private_DeleteKey);
+			die();
+		}
+	}
+	else if ($actionId == 'reset_password') {
+	if (!ResetPassword($accountId)) {
+			http_response_code(500);
+			echo(json_encode(array(
+				'status' => 'failed',
+				'errno' => '100510',
 				'message' => 'internal server error'
 			)));
 			$private_DeleteKey($conn, $key);

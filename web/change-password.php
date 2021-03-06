@@ -1,4 +1,5 @@
 <?php
+// This file is for changing a password WHILST logged in
 require_once 'Resource/private/session.php';
 require_once 'Resource/private/hashPasswordKdf.php';
 

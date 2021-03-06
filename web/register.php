@@ -124,8 +124,8 @@ function IsUsernameAvailable($conn, $userName) {
 		http_response_code(500);
 		die(json_encode(array(
 			'status' => 'failed',
-			'errno' => '0',
-			'message' => 'failed'
+			'errno' => '100509',
+			'message' => 'internal server error'
 		)));
 	}
 	

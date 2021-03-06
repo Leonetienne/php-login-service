@@ -40,13 +40,14 @@
 	</head>
 
 	<body>
-		<h1 class="text-center">Thanks for your registration!</h1>
+		<h1 class="text-center">Someone requested a password-reset for your account!</h1>
 		<p class="text-center">
-			To complete your registration for <?php echo($templateVars['userEmail']) ?>, please confirm your email, by clicking on this button!
+			If you want to reset your password, click on the button below.
+			<br> If so, you will receive an email with a temporary password shortly after.
 		</p>
 
 		<div class="button-wrapper">
-			<a href="<?php echo($templateVars['confirmationLink']) ?>" target="_blank" class="button">
+			<a href="<?php echo($templateVars['resetLink']) ?>" target="_blank" class="button">
 				<p>
 					Confirm
 				</p>

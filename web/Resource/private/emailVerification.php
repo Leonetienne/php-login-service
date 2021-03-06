@@ -1,7 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 require_once 'database.php';
-use PHPMailer\PHPMailer\PHPMailer;
+require_once 'sendTemplatedEmail.php';
 
 	// Will set up a verification action end send out an email containing a link to it
 	function SendRegistrationEmail($userEmail) {
@@ -23,9 +22,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 		}
 
 		$uid = $results[0][0];
-		$actionKey = hash('tiger128,3', $uid . $userEmail . random_int(0, PHP_INT_MAX));
 
 		// Create action key
+		$actionKey = hash('tiger128,3', $uid . $userEmail . random_int(0, PHP_INT_MAX));
 		$results = SecureQuery(
 			$conn,
 			"INSERT INTO action_keys
@@ -39,35 +38,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 			time() + 60*60*24 // Expires after one day
 		);
 
-		$mail = new PHPMailer();
-		$mail->isSMTP();
-		$mail->Host = 'localhost';
-		$mail->SMTPAuth = false;
-		// Use authentication and encryption if using in production!!!
-		//$mail->Username = '';
-		//$mail->Password = '';
-		//$mail->SMTPSecure = 'tls';
-		//$mail->SMTPAutoTLS = false;
-		$mail->Port = 1025;
-
-		$mail->setFrom('noreply@example.de', 'loginserver');
-		$mail->addAddress($userEmail); 
-
-		$mail->Subject = 'Thanks for creating your account!';
-		$mail->isHTML(true);
-
 		$confirmationLink = 'https://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . '/action.php?key=' . urlencode($actionKey);
-
-		ob_start();
-		include 'template/mail/registration.php';
-		$mail->Body = ob_get_clean();
-
-		if (!$mail->send()) {
-			echo(json_encode(array(
-				'message' => $mail->ErrorInfo
-			)));
+		if (!SendTemplatedEmail($userEmail, 'Thanks for registering!', 'template/mail/registration.php', array(
+			'userEmail' => $userEmail,
+			'confirmationLink' => $confirmationLink
+		))) {
 			return false;
 		}
+
 		return true;
 	}
  
@@ -90,6 +68,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 			return false;
 		}
 
+		// Set flag to true
 		SecureQuery(
 			$conn,
 			"UPDATE fe_users SET isVerified = 1 WHERE uid = ?;",
