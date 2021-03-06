@@ -14,13 +14,13 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "password",
-							"value": "koka_corona",
+							"key": "email",
+							"value": "admin",
 							"type": "text"
 						},
 						{
-							"key": "email",
-							"value": "admin",
+							"key": "password",
+							"value": "koka_corona",
 							"type": "text"
 						}
 					]
@@ -82,17 +82,17 @@
 					"formdata": [
 						{
 							"key": "email",
-							"value": "hajak@f.de",
+							"value": "pupu@f.de",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "hajak",
+							"value": "pupu",
 							"type": "text"
 						},
 						{
 							"key": "username",
-							"value": "ohne_namen",
+							"value": "xxx",
 							"type": "text"
 						},
 						{
@@ -135,18 +135,22 @@
 					"formdata": [
 						{
 							"key": "sessionId",
-							"value": "afa5143761ff947423bd43dfa817af80",
+							"value": "428a5a3fd9832e841ca785df5f5c0661",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "?=",
-					"query": [
-						{
-							"key": null,
-							"value": ""
-						}
+					"raw": "https://php-login-service.ddev.site:3300/testbump.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"testbump.php"
 					]
 				}
 			},
@@ -157,7 +161,181 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "bcf22101c2619eae2b0de08a9dc610f9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/logout.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"logout.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logoutAll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "6d416422df4abdcd85ab87789589f517",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/logout-all.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"logout-all.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changePassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "95b93c7a63f7eeb9976dfc4b9ce30387",
+							"type": "text"
+						},
+						{
+							"key": "oldPassword",
+							"value": "baaka",
+							"type": "text"
+						},
+						{
+							"key": "newPassword",
+							"value": "hajak",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/change-password.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"change-password.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SetUserBanned",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "fd2d9852bee548e6f9c641d48d0f1d8a",
+							"description": "session-idof the moderator account",
+							"type": "text"
+						},
+						{
+							"key": "userEmail",
+							"value": "hajak@f.de",
+							"description": "ban this user",
+							"type": "text"
+						},
+						{
+							"key": "banned",
+							"value": "0",
+							"description": "1=banned; 0=unbanned;",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/set-user-banned.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"set-user-banned.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KickUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessionId",
+							"value": "d6142a4a373905cabca39b3ffe7ea702",
+							"type": "text"
+						},
+						{
+							"key": "userEmail",
+							"value": "hajak@f.de",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://php-login-service.ddev.site:3300/kick-user.php",
+					"protocol": "https",
+					"host": [
+						"php-login-service",
+						"ddev",
+						"site"
+					],
+					"port": "3300",
+					"path": [
+						"kick-user.php"
+					]
+				}
 			},
 			"response": []
 		}
