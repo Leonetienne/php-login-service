@@ -47,8 +47,25 @@ require_once 'Resource/private/permissions.php';
 		$sessionId
 	)->fetch_all();
 
+	$permLevel__requestingUser = $results[0][0];
+	$curPermLevel__userToModify;
+
+	// Fetch current permLevel of user to modify
+	$curPermLevel__userToModify = $results = SecureQuery(
+		$conn,
+		"SELECT fe_users.permLevel FROM fe_users WHERE email = ?;",
+		"s",
+		$userEmail
+	)->fetch_all()[0][0];
+
 	// Check permissions
-	if (($results[0][0] < $PERMISSIONS['grant_permissions']) || ($results[0][0] <= $permLevel)) {
+	// Fails if:
+	//   - requesting user is not admin
+	//   - requested permLevel is >= requestingUser.permLevel
+	//   - userToModify.permLevel >= requestingUser.permLevel
+	if (($permLevel__requestingUser < $PERMISSIONS['grant_permissions']) ||
+		($permLevel__requestingUser <= $permLevel) ||
+		($permLevel__requestingUser <= $curPermLevel__userToModify)) {
 		http_response_code(401);
 		die(json_encode(array(
 			'status' => 'failed',
